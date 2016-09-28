@@ -1,0 +1,13 @@
+.students, .students td, .students th { border: 1px solid #000; }
+.students td, .students th, .header, .fieldlist, #filter ul, .nav { text-align: center; }
+.students { width: 100%; border-collapse: collapse; } 
+.students td, .students th { padding: 5px; }
+.students th { background: #ccc; }
+body { font-family: sans-serif; }
+.field, #filter li { display: inline; }
+.add { padding: 10px 0 10px 0px; }
+.students .info { width: 25%; text-align: left; }
+.left { float: left; }
+.right { float: right; }
+td p span { width: 50%; }
+#list tr:first-child {display: table-row!important;}
