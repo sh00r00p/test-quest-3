@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Авг 17 2016 г., 02:51
--- Версия сервера: 5.5.50-0ubuntu0.14.04.1
+-- Время создания: Сен 28 2016 г., 21:03
+-- Версия сервера: 5.5.52-0ubuntu0.14.04.1
 -- Версия PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -119,10 +119,10 @@ CREATE TABLE IF NOT EXISTS `students` (
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
-  `birth` varchar(45) DEFAULT NULL,
+  `birth` datetime DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `ip` varchar(45) DEFAULT NULL,
-  `time` varchar(45) DEFAULT NULL,
+  `ip` binary(16) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
   `comment` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
@@ -132,18 +132,18 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `surname`, `group_id`, `birth`, `email`, `ip`, `time`, `comment`) VALUES
-(1, 'Ivan', 'Ivanov', 1, '1992-01-01', 'email.email.com', '192.168.1.1', '14-08-2016 01:52:39', 'bla bla'),
-(2, 'Peter', 'Petrov', 1, '1990-01-02', 'test@test.com', '10.10.10.10', '15-08-2016 01:52:39', NULL),
-(3, 'Alex', 'Alexeev', 1, '1992-01-01', 'alekseev@mail.ru', '10.10.10.10', '14-08-2016 01:52:39', NULL),
-(4, 'Serge', 'Sergeev', 1, '1989-06-01', 'sergeev@mail.ru', '12.345.6.78', '14-08-2016 03:52:39', 'test message'),
-(5, 'Mike', 'Johnson', 1, '1990-12-01', 'mihailov@mail.ru', '245.23.312.2', '14-10-2016 01:52:39', 'comment'),
-(6, 'Pail', 'McGregor', 1, '1989-09-12', 'pavlov@mail.ru', '1.10.32.234', '01-08-2016 23:43:12', NULL),
-(7, 'Danil', 'Danilov', 1, '1980-03-25', 'danilov@mail.ru', '195.2.232.23', '15-08-2016 01:52:39', NULL),
-(8, 'Evgeniev', 'Evgeniy', 1, '1983-02-21', 'evgeniev@mail.ru', '192.168.0.1', '15-08-2016 01:52:39', 'comment'),
-(9, 'Andrew', 'Andreev', 1, '1990-10-17', 'andreev@mail.ru', '123.13.1.13', '14-08-2016 01:52:39', NULL),
-(10, 'Grigory', 'Grigoryanz', 1, '1989-01-23', 'grigoryanz@mail.ru', '12.56.654.23', '14-01-2016 23:00:00', NULL),
-(11, 'Roman', 'Romanov', 2, '1992-01-01', 'romanov@mail.ru', '10.10.10.10', '14-08-2016 01:53:39', NULL),
-(12, 'John', 'Doe', 2, '1992-01-01', 'doe@mail.ru', '12.345.6.78', '14-08-2016 01:52:39', 'normal');
+(1, 'Ivan', 'Ivanov', 1, '1992-01-01 00:00:00', 'email.email.com', '192.168.1.1\0\0\0\0\0', '0000-00-00 00:00:00', 'bla bla'),
+(2, 'Peter', 'Petrov', 1, '1990-01-02 00:00:00', 'test@test.com', '10.10.10.10\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(3, 'Alex', 'Alexeev', 1, '1992-01-01 00:00:00', 'alekseev@mail.ru', '10.10.10.10\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(4, 'Serge', 'Sergeev', 1, '1989-06-01 00:00:00', 'sergeev@mail.ru', '12.345.6.78\0\0\0\0\0', '0000-00-00 00:00:00', 'test message'),
+(5, 'Mike', 'Johnson', 1, '1990-12-01 00:00:00', 'mihailov@mail.ru', '245.23.312.2\0\0\0\0', '0000-00-00 00:00:00', 'comment'),
+(6, 'Pail', 'McGregor', 1, '1989-09-12 00:00:00', 'pavlov@mail.ru', '1.10.32.234\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(7, 'Danil', 'Danilov', 1, '1980-03-25 00:00:00', 'danilov@mail.ru', '195.2.232.23\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(8, 'Evgeniev', 'Evgeniy', 1, '1983-02-21 00:00:00', 'evgeniev@mail.ru', '192.168.0.1\0\0\0\0\0', '0000-00-00 00:00:00', 'comment'),
+(9, 'Andrew', 'Andreev', 1, '1990-10-17 00:00:00', 'andreev@mail.ru', '123.13.1.13\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(10, 'Grigory', 'Grigoryanz', 1, '1989-01-23 00:00:00', 'grigoryanz@mail.ru', '12.56.654.23\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(11, 'Roman', 'Romanov', 2, '1992-01-01 00:00:00', 'romanov@mail.ru', '10.10.10.10\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
+(12, 'John', 'Doe', 2, '1992-01-01 00:00:00', 'doe@mail.ru', '12.345.6.78\0\0\0\0\0', '0000-00-00 00:00:00', 'normal');
 
 -- --------------------------------------------------------
 

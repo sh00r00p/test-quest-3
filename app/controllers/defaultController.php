@@ -14,10 +14,8 @@ class defaultController
 	function index()
 	{
 		$model = new defaultModel();
-		if($model) {
-			$students = $model->getList();
-			$rates = $model->getRates();
-		}
+		$students = $model->getList();
+		$rates = $model->getRates();
 
 		$this->view->generate($students, 'list', $rates);
 	}
@@ -25,8 +23,7 @@ class defaultController
 	function add()
 	{
 		$model = new defaultModel();
-		if($model) 
-			$students = $model->getList();
+		$students = $model->getList();
 		
 		$this->view->generate($students, 'add');
 	}
@@ -35,8 +32,7 @@ class defaultController
 	{
 		$formData = $_POST;
 		$model = new defaultModel();
-		if($model) 
-			$response = $model->addStudent($formData);
+		$response = $model->addStudent($formData);
 		
 		echo $response;
 	}
@@ -45,7 +41,8 @@ class defaultController
 	{
 		$id = array_pop($arr);
 		$model = new defaultModel();
-		if($model) {
+		
+		if((int)$id) {
 			$row = $model->getRow($id);
 			$groups = $model->getGroups();
 		}
@@ -56,8 +53,7 @@ class defaultController
 	function top()
 	{
 		$model = new defaultModel();
-		if($model) 
-			$top = $model->getTop(10);
+		$top = $model->getTop(10);
 
 		$this->view->generate($top, 'top');
 	}
@@ -67,8 +63,7 @@ class defaultController
 		$formData = $_POST;
 		$model = new defaultModel();
 	
-		if($model) 
-			$response = $model->updateRow($formData);
+		$response = $model->updateRow($formData);
 
 		header('Location: /');
 	}

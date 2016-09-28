@@ -10,7 +10,7 @@ index.php - файл индекса проекта;
 style.css - файл со стилями;
 .htacces - реврайт ссылок на index.php;
 queries.sql - файл дополнительных запросов к бд по маске;
-students_dump.sql - дамп бд;
+students.sql - дамп бд;
 students_schema.mwb - схема бд, в формате Mysql Workbench;
 
 Деплой:

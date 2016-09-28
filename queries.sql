@@ -12,9 +12,8 @@ HAVING average BETWEEN ... AND ...
 
 #всех   людей,   c   IP   которых   произошло   более   одной   регистрации,   и   при   этом   хотя   бы  
 #у одного из них должна быть написана характеристика научного руководителя
-SELECT * 
-FROM students 
-WHERE students.ip in (
-	SELECT students.ip 
-	FROM students GROUP BY students.ip HAVING COUNT(*) > 1) 
-AND students.comment IS NOT NULL
+SELECT * FROM students WHERE students.ip IN (
+    SELECT students.ip FROM students
+    GROUP BY students.ip 
+    HAVING COUNT(*) > 1 AND MAX(students.comment) IS NOT NULL
+)

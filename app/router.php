@@ -18,11 +18,15 @@ class Routing
 		$modelName = strtolower($controllerName) . 'Model';
 		$controllerName = strtolower($controllerName) . 'Controller';
 		
-		$fileWithModel = strtolower($modelName) . 'php';
+		$fileWithModel = $modelName . '.php';
 		$fileWithModelPath	= "app/models/" . $fileWithModel;
 		if (file_exists($fileWithModelPath))
 		{
-			include $fileWithModelPath;
+			include_once $fileWithModelPath;
+		}
+		else
+		{
+			die('<b>Ошибка!</b> Невозможно подключить файл модели <b>' . $fileWithModelPath);
 		}
 		$fileWithController = $controllerName . '.php';
 		$fileWithControllerPath = "app/controllers/" . $fileWithController;

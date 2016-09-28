@@ -1,5 +1,7 @@
 <?php
 
+defined('_APP') or die('Restricted access');
+
 class Helper
 {
 
