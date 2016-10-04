@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Сен 28 2016 г., 21:03
+-- Время создания: Окт 04 2016 г., 23:18
 -- Версия сервера: 5.5.52-0ubuntu0.14.04.1
 -- Версия PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
 
@@ -48,23 +48,23 @@ INSERT INTO `groups` (`id`, `title`) VALUES
 
 CREATE TABLE IF NOT EXISTS `rates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `part` int(11) DEFAULT NULL,
+  `semester` int(11) DEFAULT NULL,
   `student_id` int(11) NOT NULL,
   `subject_id` varchar(45) NOT NULL,
   `rate` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `semester` (`semester`,`student_id`,`subject_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Дамп данных таблицы `rates`
 --
 
-INSERT INTO `rates` (`id`, `part`, `student_id`, `subject_id`, `rate`) VALUES
+INSERT INTO `rates` (`id`, `semester`, `student_id`, `subject_id`, `rate`) VALUES
 (1, 1, 1, '1', '5'),
 (2, 1, 1, '2', '4'),
 (3, 1, 1, '3', '3'),
 (4, 1, 1, '4', '3'),
-(5, 1, 2, '1', '5'),
 (6, 1, 2, '1', '5'),
 (7, 1, 2, '3', '5'),
 (8, 1, 2, '4', '5'),
@@ -125,14 +125,14 @@ CREATE TABLE IF NOT EXISTS `students` (
   `time` datetime DEFAULT NULL,
   `comment` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `students`
 --
 
 INSERT INTO `students` (`id`, `name`, `surname`, `group_id`, `birth`, `email`, `ip`, `time`, `comment`) VALUES
-(1, 'Ivan', 'Ivanov', 1, '1992-01-01 00:00:00', 'email.email.com', '192.168.1.1\0\0\0\0\0', '0000-00-00 00:00:00', 'bla bla'),
+(1, 'Ivan', 'Ivanov', 1, '1992-01-01 00:00:00', 'email@email.com', '192.168.1.1\0\0\0\0\0', '0000-00-00 00:00:00', 'bla bla'),
 (2, 'Peter', 'Petrov', 1, '1990-01-02 00:00:00', 'test@test.com', '10.10.10.10\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
 (3, 'Alex', 'Alexeev', 1, '1992-01-01 00:00:00', 'alekseev@mail.ru', '10.10.10.10\0\0\0\0\0', '0000-00-00 00:00:00', NULL),
 (4, 'Serge', 'Sergeev', 1, '1989-06-01 00:00:00', 'sergeev@mail.ru', '12.345.6.78\0\0\0\0\0', '0000-00-00 00:00:00', 'test message'),

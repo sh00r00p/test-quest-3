@@ -11,3 +11,4 @@ body { font-family: sans-serif; }
 .right { float: right; }
 td p span { width: 50%; }
 #list tr:first-child {display: table-row!important;}
+.descr, #result_id { text-align: center; margin: 3%; }

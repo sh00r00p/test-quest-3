@@ -2,15 +2,15 @@
 
 /*forming filters arrays*/
 $surnames = array();
-$parts = array();
+$semesters = array();
 $averages = array();
 $groups = array();
 $group_id = array();
 $group_title = array();
 foreach($content as $student){
   if(!in_array($student->student_surname, $surnames)) $surnames[] = $student->student_surname;
-  if(!in_array($student->part, $parts)) $parts[] = $student->part;
-  if(!in_array($student->part, $averages)) $averages[] = $student->average;
+  if(!in_array($student->semester, $semesters)) $semesters[] = $student->semester;
+  if(!in_array($student->semester, $averages)) $averages[] = $student->average;
   if(!in_array($student->group_id, $group_id)) $group_id[] = $student->group_id; 
   if(!in_array($student->group_title, $group_title)) $group_title[] = $student->group_title; 
 }
@@ -53,9 +53,9 @@ $groups = array_combine($group_id, $group_title);
                 </select>
             </li>
             <li>
-                <select name="" id="part">
-                    <option value="">Part</option>
-                  <?php foreach($parts as $item) : ?>
+                <select name="" id="">
+                    <option value="">Semester</option>
+                  <?php foreach($semesters as $item) : ?>
                     <option value="<?php echo $item; ?>"><?php echo $item; ?></option>
                   <?php endforeach; ?>
                 </select>
@@ -73,7 +73,7 @@ $groups = array_combine($group_id, $group_title);
         </div>
         <table id="list" class="students">
           <tr>
-            <th>Part</th>
+            <th>Semester</th>
             <th>Group</th>
             <th>Name</th>
             <th>Surname</th>
@@ -87,8 +87,8 @@ $groups = array_combine($group_id, $group_title);
             <th>Comment</th>
           </tr>
           <?php foreach($content as $item) : ?>
-            <tr id="<?php echo $item->student_id; ?>" data-filter="<?php echo 's'.'-'.$item->student_surname . ' g-' . $item->group_title . ' p-' . $item->part . ' a-' . $item->average; ?>">
-              <td><?php echo $item->part;?></td>
+            <tr id="<?php echo $item->student_id; ?>" data-filter="<?php echo 's'.'-'.$item->student_surname . ' g-' . $item->group_title . ' p-' . $item->semester . ' a-' . $item->average; ?>">
+              <td><?php echo $item->semester;?></td>
               <td>
                   <?php echo $item->group_title;?><br>
                   <button><?php echo'<a href="/default/edit/' . $item->student_id . '">Edit</a>'; ?></button>
@@ -101,12 +101,12 @@ $groups = array_combine($group_id, $group_title);
               <td><?php echo $item->student_time;?></td>
               <td>
                 <?php foreach($data as $k=>$v) : ?>
-                        <?php if(($v->student_id === $item->student_id) && ($v->part === $item->part)) echo $v->subject_name . '<br>';?>
+                        <?php if(($v->student_id === $item->student_id) && ($v->semester === $item->semester)) echo $v->subject_name . '<br>';?>
                   <?php endforeach; ?> 
               </td>
               <td>
                 <?php foreach($data as $k=>$v) : ?>
-                        <?php if(($v->student_id === $item->student_id) && ($v->part === $item->part)) echo $v->rate . '<br>'; ?>
+                        <?php if(($v->student_id === $item->student_id) && ($v->semester === $item->semester)) echo $v->rate . '<br>'; ?>
                   <?php endforeach; ?>    
               </td>
               <td><?php echo $item->average;?></td>

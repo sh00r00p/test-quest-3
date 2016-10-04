@@ -1,6 +1,8 @@
 <?php
+
 class Routing
 {
+
 	static function execute() 
 	{
 		$controllerName = 'default';	
@@ -17,7 +19,10 @@ class Routing
 		}
 		$modelName = strtolower($controllerName) . 'Model';
 		$controllerName = strtolower($controllerName) . 'Controller';
-		
+
+		$reporting = new Error;
+		$e_reporting = $reporting->getReport();
+
 		$fileWithModel = $modelName . '.php';
 		$fileWithModelPath	= "app/models/" . $fileWithModel;
 		if (file_exists($fileWithModelPath))
@@ -26,7 +31,15 @@ class Routing
 		}
 		else
 		{
-			die('<b>Ошибка!</b> Невозможно подключить файл модели <b>' . $fileWithModelPath);
+			if($e_reporting === 'none' || $e_reporting === 'default'){
+				$message = 'Error! Unable to connect the model file <b>' . $fileWithModelPath;
+				$reporting->setError($message);
+				header("HTTP/1.0 404 Not Found");
+				include("error.html");
+				die(); 
+			} elseif($e_reporting === 'develop'){
+				die('<b>Error!</b> Unable to connect the model file <b>' . $fileWithModelPath);
+			}
 		}
 		$fileWithController = $controllerName . '.php';
 		$fileWithControllerPath = "app/controllers/" . $fileWithController;
@@ -36,7 +49,15 @@ class Routing
 		}
 		else
 		{
-			die('<b>Ошибка!</b> Невозможно подключить файл контроллера <b>' . $fileWithControllerPath);
+			if($e_reporting === 'none' || $e_reporting === 'default'){
+				$message = 'Error! Unable to connect the controller file <b>' . $fileWithControllerPath;
+				$reporting->setError($message);
+				header("HTTP/1.0 404 Not Found");
+				include("error.html");
+				die(); 
+			} elseif($e_reporting === 'develop'){
+				die('<b>Error!</b> Unable to connect the controller file <b>' . $fileWithControllerPath);
+			}
 		}
 		$controller = new $controllerName;
 		$action = $actionName;
@@ -46,7 +67,15 @@ class Routing
 		}
 		else
 		{
-			die('<b>Ошибка!</b> Невозможно подключить метод контроллера: <b>' . $action);
+			if($e_reporting === 'none' || $e_reporting === 'default'){
+				$message = '<b>Error!</b> Unable to connect the controller function: <b>' . $action;
+				$reporting->setError($message);
+				header("HTTP/1.0 404 Not Found");
+				include("error.html");
+				die();
+			} elseif($e_reporting === 'develop'){
+				die('<b>Error!</b> Unable to connect the controller function: <b>' . $fileWithControllerPath);
+			}
 		}
 	}	
 }

@@ -17,7 +17,10 @@ class defaultController
 		$students = $model->getList();
 		$rates = $model->getRates();
 
-		$this->view->generate($students, 'list', $rates);
+		if($students)
+			$this->view->generate($students, 'list', $rates);
+		else
+			echo 'An internal error occurred. Please try again later or contact your administrator.';
 	}
 
 	function add()
@@ -34,7 +37,10 @@ class defaultController
 		$model = new defaultModel();
 		$response = $model->addStudent($formData);
 		
-		echo $response;
+		if($response) 
+			echo $response;
+		else
+			echo 'An internal error occurred. Please try again later or contact your administrator.';
 	}
 
 	function edit($arr)
@@ -65,6 +71,9 @@ class defaultController
 	
 		$response = $model->updateRow($formData);
 
-		header('Location: /');
+		if($response)
+			header('Location: /');
+		else
+			echo 'An internal error occurred. Please try again later or contact your administrator.';
 	}
 }

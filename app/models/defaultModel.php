@@ -6,9 +6,10 @@ class defaultModel
 	{
 	    $db = $this->dbConnect();
       	$list = array();
+      	$reporting = new Error;
       	if($db) {
          $query = 'SELECT DISTINCT
-               rates.part AS part,
+               rates.semester AS semester,
                groups.id AS group_id,
                groups.title AS group_title,
                students.id AS student_id,
@@ -27,7 +28,7 @@ class defaultModel
                INNER JOIN groups ON (students.group_id = groups.id)
                INNER JOIN subjects ON (rates.subject_id = subjects.id)
             GROUP BY
-               part,
+               semester,
                student_id,               
                group_title';
 
@@ -37,6 +38,11 @@ class defaultModel
                  $list[] = $row;
              }
          }
+      } else {
+      	    $message = "Error: no connect to database";
+	      	    $reporting->setError($message);
+
+	        return false;
       }
 
       return $list;	
@@ -51,7 +57,7 @@ class defaultModel
 	         
 	         $query = '
 	            SELECT DISTINCT
-	               rates.part AS part,
+	               rates.semester AS semester,
 	               students.id AS student_id,
 	               subjects.subject AS subject_name,
 	               rates.rate AS rate,
@@ -62,7 +68,7 @@ class defaultModel
 	               INNER JOIN groups ON (students.group_id = groups.id)
 	               INNER JOIN subjects ON (rates.subject_id = subjects.id)
 	            GROUP BY
-	               part,
+	               semester,
 	               student_id,
 	               subject_name';
 
@@ -85,7 +91,7 @@ class defaultModel
       $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_database);
 
       if ($mysqli->connect_error) {
-         //die('Ошибка подключения (' . $db_server->connect_errno . ') '. $db_server->connect_error);
+         
          return false;
       }
 
@@ -104,42 +110,57 @@ class defaultModel
 	        if($result = $db->query($query)){
 	            return true;
 	        } else {
-	            $error = "Ошибка: %s\n" . $db->error;
+	            $message = 'Error: ' . $db->error;
+	            $reporting->setError($message);
 
-	            return $error;
+	            return false;
 	        }
         } else {
-            $error = "Ошибка: %s\n" . $db->error;
+            $message = "Error: no connect to database";
+	      	$reporting->setError($message);
 
-	        return $error;
+	        return false;
         }
 	}
 
 	public function addStudent($data)
 	{
         $db = $this->dbConnect();
+        $reporting = new Error;
 
 	    if($db) {
 	         //insert values from form
 	         $query_1 = 'INSERT INTO students (name, surname, group_id, birth, email, ip, time)
 	         VALUES ("'.$data['name'].'", "'.$data['surname'].'","'.$data['group'].'", "'.$data['birth_date'].'", "'.$data['email'].'", "'.$data['ip'].'", "'.$data['date'].'")';
 	         
-	         if ($result_1 = $db->query($query_1)) {
+	        if ($result_1 = $db->query($query_1)) {
 	            //insert random rates
-	            $query_2 = 'INSERT INTO rates (part, student_id, subject_id, rate)
+	            $query_2 = 'INSERT INTO rates (semester, student_id, subject_id, rate)
 	         VALUES ("'.mt_rand(1, 8).'", LAST_INSERT_ID(), "'.mt_rand(1, 4).'", "'.mt_rand(2, 5).'")';
 
-	            if($result_2 = $db->query($query_2)){
-	               //var_dump($result_1);
-	               //var_dump($query_1);
+	            if($result_2 = $db->query($query_2)) {
+	               
 	              echo 'Student add sucess!';
 
 	            } else {
-	            printf("Ошибка: %s\n", $db->error);
+
+	                $message = 'Error: ' . $db->error;
+	                $reporting->setError($message);
+
+	                return false;
 	            }
-	         } else {
-	            printf("Ошибка: %s\n", $db->error);
+	        } else {
+	            
+	            $message = 'Error: ' . $db->error;
+	            $reporting->setError($message);
+
+	            return false;
 	         }
+	      } else {
+	      	    $message = "Error: no connect to database";
+	      	    $reporting->setError($message);
+
+	        return false;
 	      }
 	}
 
