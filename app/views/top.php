@@ -10,8 +10,8 @@
       <h3 class="header"><?php echo '10 top rated students'; ?></h3>
       <div class="nav">
           <nav>
-            <button><a href="/">List</a></button>
-            <button><a href="/default/add">Add</a></button>
+            <a href="/">List</a>
+            <a href="/default/add">Add</a>
           </nav>
         </div>
       <table id="top-list" class="students">

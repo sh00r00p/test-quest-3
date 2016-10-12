@@ -10,9 +10,9 @@
         <h2 class="header">Edit student</h2>
         <div class="nav">
           <nav>
-            <button><a href="/default/add">Add</a></button>
-            <button><a href="/default/top">Top</a></button>
-            <button><a href="/">List</a></button>
+            <a href="/default/add">Add</a>
+            <a href="/default/top">Top</a>
+            <a href="/">List</a>
           </nav>
         </div>
         <table id="list" class="students">

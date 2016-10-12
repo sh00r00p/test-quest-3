@@ -34,8 +34,9 @@ class defaultController
 	function addRow()
 	{
 		$formData = $_POST;
+		$browser = Helper::getBrowser();
 		$model = new defaultModel();
-		$response = $model->addStudent($formData);
+	    $response = $model->addStudent($formData);
 		
 		if($response) 
 			echo $response;
@@ -52,8 +53,12 @@ class defaultController
 			$row = $model->getRow($id);
 			$groups = $model->getGroups();
 		}
+		if(!empty($row)) {
+			$this->view->generate($row, 'edit', $groups);
+		} else {
+			echo 'Student with this id not found!';
+		}
 
-		$this->view->generate($row, 'edit', $groups);
 	}
 
 	function top()

@@ -6,7 +6,8 @@ class Helper
 {
 
   //get real client ip
-  public static function getIpAddr() {
+  public static function getIpAddr() 
+  {
 
       if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
          
@@ -22,6 +23,20 @@ class Helper
       }
      
      return $ip;
+  }
+
+  public static function getBrowser()
+  {
+      $user_agent = $_SERVER["HTTP_USER_AGENT"];
+      
+      if (strpos($user_agent, "Firefox") !== false) $browser = "firefox";
+      elseif (strpos($user_agent, "Opera") !== false) $browser = "opera";
+      elseif (strpos($user_agent, "Chrome") !== false) $browser = "chrome";
+      elseif (strpos($user_agent, "MSIE") !== false) $browser = "ie";
+      elseif (strpos($user_agent, "Safari") !== false) $browser = "safari";
+      else $browser = "noname";
+
+      return $browser;
   }
 
 }

@@ -30,8 +30,8 @@ $groups = array_combine($group_id, $group_title);
         <h2 class="header"><?php echo 'Students list'; ?></h2>
         <div class="nav">
         	<nav>
-        		<button><a href="/default/add">Add</a></button>
-        		<button><a href="/default/top">Top</a></button>
+        		<a href="/default/add">Add</a>
+        		<a href="/default/top">Top</a>
         	</nav>
         </div>
         <div id="filter">

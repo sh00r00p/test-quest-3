@@ -2,9 +2,9 @@
 
 class Error
 {
-	public function getReport()
+	public function _construct()
 	{
-		require_once 'config.conf';
+		require_once 'config/config.conf';
 
 		switch($error_reporting){
 			case 'develop':
@@ -26,17 +26,28 @@ class Error
 		return $error_reporting;
 	}
 
-	public function setError($message)
+	public function setError($message, $component = null)
 	{
-		require 'config.conf';
+		require 'config/config.conf';
 
 		$date = date('d.m.Y h:i:s');
+
 		if (file_exists($error_path)){
 			error_log($date . ' ' . $message . "\n", 3, $error_path);
 		} else {
 			$fh = fopen($error_path, 'w');
 			error_log($date . ' ' . $message . "\n", 3, $error_path);
 			fclose($fh);
+		}
+
+		if($component === 'router') {
+			if($error_reporting === 'none' || $error_reporting === 'default'){
+				header("HTTP/1.0 404 Not Found");
+				include("error.html");
+				die(); 
+			} elseif($error_reporting === 'develop'){
+				die($message);
+			}
 		}
 	}
 }

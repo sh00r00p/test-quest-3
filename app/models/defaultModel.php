@@ -86,7 +86,7 @@ class defaultModel
 	private function dbConnect() 
 	{
       
-      require 'config.conf';
+      require 'config/config.conf';
 
       $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_database);
 
@@ -127,8 +127,26 @@ class defaultModel
 	{
         $db = $this->dbConnect();
         $reporting = new Error;
+        $browser = Helper::getBrowser();
+        
+        if(($browser != 'chrome') || ($browser != 'opera') || ($browser != 'safari')) $browser = false;
+
+		if(get_magic_quotes_gpc() == 1) {
+			$data['name'] = stripslashes(trim($data['name']));
+			$data['surname'] = stripslashes(trim($data['surname']));
+			if(!$browser) $data['birth_date'] = stripslashes(trim($data['birth_date']));
+		} else {
+			$data['name'] = trim($data['name']);
+			$data['surname'] = trim($data['surname']);
+			if(!$browser) $data['birth_date'] = trim($data['birth_date']);
+		}
 
 	    if($db) {
+
+	    	$data['name'] = mysqli_real_escape_string($db, $data['name']);
+			$data['surname'] = mysqli_real_escape_string($db, $data['surname']);
+			if(!$browser) $data['birth_date'] = mysqli_real_escape_string($data['birth_date']);
+
 	         //insert values from form
 	         $query_1 = 'INSERT INTO students (name, surname, group_id, birth, email, ip, time)
 	         VALUES ("'.$data['name'].'", "'.$data['surname'].'","'.$data['group'].'", "'.$data['birth_date'].'", "'.$data['email'].'", "'.$data['ip'].'", "'.$data['date'].'")';
